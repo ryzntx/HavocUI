@@ -15,7 +15,15 @@
 .end annotation
 
 
+# static fields
+.field private static final TAG:Ljava/lang/String;
+
+.field public static isEnable:Z
+
+
 # instance fields
+.field bar:Z
+
 .field private isAnimating:Z
 
 .field private isDark:Z
@@ -48,6 +56,10 @@
 
 .field private mColor:I
 
+.field private mColorTint:I
+
+.field private mDarkInten:F
+
 .field private mDarkColor:I
 
 .field private mHandler:Landroid/os/Handler;
@@ -56,12 +68,39 @@
 
 .field private mUseChargingColor:Z
 
+.field private mOverrideIconColor:I
+
+.field private mReverseOverrideIconColor:I
+
 .field private shouldAnimateCharging:Z
 
 .field vertical:Z
 
 
 # direct methods
+.method private applyColorView()V
+    .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "()V"
+        }
+    .end annotation
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mCharger:Landroid/view/View;
+
+    iget v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mColorTint:I
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundColor(I)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mBatteryBar:Landroid/view/View;
+
+    iget v1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mColorTint:I
+
+    invoke-virtual {v0, v1}, Landroid/view/View;->setBackgroundColor(I)V
+
+    return-void
+.end method
+
 .method static constructor <clinit>()V
     .locals 1
 
@@ -83,7 +122,19 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
-    .locals 1
+    .locals 8
+
+    const/4 v4, 0x1
+
+    const/4 v1, -0x1
+
+    const/4 v3, 0x0
+
+    const/4 v5, 0x0
+
+    const/4 v6, 0x0
+
+    const/4 v7, 0x1
 
     .line 143
     invoke-direct {p0, p1, p2, p3}, Landroid/widget/RelativeLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;I)V
@@ -92,6 +143,10 @@
 
     .line 52
     iput-boolean p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mAttached:Z
+
+    iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mOverrideIconColor:I
+
+    iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mReverseOverrideIconColor:I
 
     .line 53
     iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mBatteryLevel:I
@@ -158,6 +213,16 @@
     invoke-direct {p1, p0}, Lcom/android/systemui/statusbar/policy/BatteryBar$1;-><init>(Lcom/android/systemui/statusbar/policy/BatteryBar;)V
 
     iput-object p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mIntentReceiver:Landroid/content/BroadcastReceiver;
+
+    new-array v1, v7, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    new-instance v5, Lcom/android/systemui/statusbar/policy/BatteryBar$100000002;
+
+    invoke-direct {v5, p0, p0}, Lcom/android/systemui/statusbar/policy/BatteryBar$100000002;-><init>(Lcom/android/systemui/statusbar/policy/BatteryBar;Ljava/lang/Object;)V
+
+    aput-object v5, v1, v6
+
+    invoke-static {v1}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
 
     return-void
 .end method
@@ -241,6 +306,38 @@
 
     .line 45
     invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/policy/BatteryBar;->setProgress(I)V
+
+    return-void
+.end method
+
+.method static synthetic access$L1000065(Lcom/android/systemui/statusbar/policy/BatteryBar;)I
+    .locals 1
+
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mOverrideIconColor:I
+
+    return v0
+.end method
+
+.method static synthetic access$L1000066(Lcom/android/systemui/statusbar/policy/BatteryBar;)I
+    .locals 1
+
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mReverseOverrideIconColor:I
+
+    return v0
+.end method
+
+.method static synthetic access$S1000065(Lcom/android/systemui/statusbar/policy/BatteryBar;I)V
+    .locals 0
+
+    iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mOverrideIconColor:I
+
+    return-void
+.end method
+
+.method static synthetic access$S1000066(Lcom/android/systemui/statusbar/policy/BatteryBar;I)V
+    .locals 0
+
+    iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mReverseOverrideIconColor:I
 
     return-void
 .end method
@@ -575,6 +672,21 @@
 
 
 # virtual methods
+.method public apdetBBar()V
+    .locals 2
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/policy/BatteryBar$100000003;
+
+    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/policy/BatteryBar$100000003;-><init>(Lcom/android/systemui/statusbar/policy/BatteryBar;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+
 .method public isRunning()Z
     .locals 0
 
@@ -599,6 +711,8 @@
 
     .line 150
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mAttached:Z
+
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->bar:Z
 
     .line 152
     new-instance v0, Landroid/widget/LinearLayout;
@@ -865,6 +979,50 @@
     invoke-interface {v0, p0}, Lcom/android/systemui/plugins/DarkIconDispatcher;->removeDarkReceiver(Lcom/android/systemui/plugins/DarkIconDispatcher$DarkReceiver;)V
 
     return-void
+.end method
+
+.method public setColorBar(IF)V
+    .locals 1
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(IF)V"
+        }
+    .end annotation
+
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mColorTint:I
+
+    if-ne p1, v0, :cond_1
+
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mDarkInten:F
+
+    cmpg-float v0, p2, v0
+
+    if-nez v0, :cond_1
+
+    const/4 v0, 0x0
+
+    :goto_0
+    iput p1, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mColorTint:I
+
+    iput p2, p0, Lcom/android/systemui/statusbar/policy/BatteryBar;->mDarkInten:F
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/policy/BatteryBar;->isAttachedToWindow()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/BatteryBar;->applyColorView()V
+
+    :cond_0
+    return-void
+
+    :cond_1
+    const/4 v0, 0x1
+
+    goto :goto_0
 .end method
 
 .method public start()V
