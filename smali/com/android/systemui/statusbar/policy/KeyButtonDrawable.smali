@@ -34,6 +34,10 @@
 
 
 # instance fields
+.field public mHandler:Landroid/os/Handler;
+
+.field public mOverrideIconColor:I
+
 .field private mAnimatedDrawable:Landroid/graphics/drawable/AnimatedVectorDrawable;
 
 .field private final mAnimatedDrawableCallback:Landroid/graphics/drawable/Drawable$Callback;
@@ -46,6 +50,78 @@
 
 
 # direct methods
+.method private putDsb()V
+    .locals 4
+
+    const/4 v1, 0x1
+
+    const/4 v3, 0x0
+
+    .line 59
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mHandler:Landroid/os/Handler;
+
+    new-array v1, v1, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    .line 60
+    new-instance v2, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$4;
+
+    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$4;-><init>(Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;Ljava/lang/Object;)V
+
+    aput-object v2, v1, v3
+
+    invoke-static {v1}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
+    return-void
+.end method
+
+.method public final synthetic lambda$setTintDsb$setDynamicColor_KeyButtonDrawable$0()V
+    .locals 2
+
+    .line 100
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mNavigationEnabled:Z
+
+    if-eqz v0, :cond_0
+
+    .line 101
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mOverrideIconColor:I
+
+    .line 102
+    invoke-virtual {p0, v0}, Landroid/graphics/drawable/Drawable;->setTint(I)V
+
+    .line 103
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mIconPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
+
+    .line 104
+    sget-object v1, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-virtual {p0, v0, v1}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
+
+    :cond_0
+    return-void
+.end method
+
+.method public apdetKeyButtonDrawable()V
+    .locals 3
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;
+
+    const/16 v2, 0xd
+
+    invoke-direct {v1, v2, p0}, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;-><init>(BLjava/lang/Object;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->postAtFrontOfQueue(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
 .method static constructor <clinit>()V
     .locals 2
 
@@ -96,10 +172,16 @@
 .end method
 
 .method private constructor <init>(Landroid/graphics/drawable/Drawable;Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;)V
-    .locals 2
+    .locals 3
 
     .line 106
     invoke-direct {p0}, Landroid/graphics/drawable/Drawable;-><init>()V
+    
+    const/4 v2, 0x0
+
+    iput v2, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mOverrideIconColor:I
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->putDsb()V
 
     .line 79
     new-instance v0, Landroid/graphics/Paint;
@@ -1283,14 +1365,37 @@
 .end method
 
 .method public setDarkIntensity(F)V
-    .locals 3
+    .locals 4
 
-    .line 122
+    .line 123
     iget-object v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mState:Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;
 
     iput p1, v0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;->mDarkIntensity:F
 
-    .line 123
+    .line 124
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mNavigationEnabled:Z
+
+    if-eqz v0, :cond_0
+
+    iget v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mOverrideIconColor:I
+
+    .line 126
+    :goto_0
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->updateShadowAlpha()V
+
+    .line 127
+    new-instance v1, Landroid/graphics/PorterDuffColorFilter;
+
+    sget-object v2, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-direct {v1, v0, v2}, Landroid/graphics/PorterDuffColorFilter;-><init>(ILandroid/graphics/PorterDuff$Mode;)V
+
+    invoke-virtual {p0, v1}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->setColorFilter(Landroid/graphics/ColorFilter;)V
+
+    return-void
+
+    .line 124
+    :cond_0
     invoke-static {}, Landroid/animation/ArgbEvaluator;->getInstance()Landroid/animation/ArgbEvaluator;
 
     move-result-object v0
@@ -1299,43 +1404,29 @@
 
     iget v1, v1, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;->mLightColor:I
 
-    .line 124
-    invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    new-instance v2, Ljava/lang/Integer;
 
-    move-result-object v1
+    invoke-direct {v2, v1}, Ljava/lang/Integer;-><init>(I)V
 
-    iget-object v2, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mState:Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;
+    iget-object v1, p0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->mState:Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;
 
-    iget v2, v2, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;->mDarkColor:I
+    iget v1, v1, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable$ShadowDrawableState;->mDarkColor:I
 
-    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    new-instance v3, Ljava/lang/Integer;
 
-    move-result-object v2
+    invoke-direct {v3, v1}, Ljava/lang/Integer;-><init>(I)V
 
-    invoke-virtual {v0, p1, v1, v2}, Landroid/animation/ArgbEvaluator;->evaluate(FLjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    invoke-virtual {v0, p1, v2, v3}, Landroid/animation/ArgbEvaluator;->evaluate(FLjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    move-result-object p1
+    move-result-object v0
 
-    check-cast p1, Ljava/lang/Integer;
+    check-cast v0, Ljava/lang/Integer;
 
-    .line 123
-    invoke-virtual {p1}, Ljava/lang/Integer;->intValue()I
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
-    move-result p1
+    move-result v0
 
-    .line 125
-    invoke-direct {p0}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->updateShadowAlpha()V
-
-    .line 126
-    new-instance v0, Landroid/graphics/PorterDuffColorFilter;
-
-    sget-object v1, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
-
-    invoke-direct {v0, p1, v1}, Landroid/graphics/PorterDuffColorFilter;-><init>(ILandroid/graphics/PorterDuff$Mode;)V
-
-    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;->setColorFilter(Landroid/graphics/ColorFilter;)V
-
-    return-void
+    goto :goto_0
 .end method
 
 .method public setRotation(F)V

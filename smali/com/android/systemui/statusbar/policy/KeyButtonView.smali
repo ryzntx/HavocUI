@@ -19,6 +19,10 @@
 
 
 # instance fields
+.field public mHandler:Landroid/os/Handler;
+
+.field public mOverrideIconColor:I
+
 .field private mAudioManager:Landroid/media/AudioManager;
 
 .field private final mCheckLongPress:Ljava/lang/Runnable;
@@ -62,6 +66,39 @@
 
 
 # direct methods
+.method public final synthetic lambda$setTintDsb$setDynamicColor_KeyButtonView$0()V
+    .locals 3
+
+    .line 17
+    invoke-virtual {p0}, Landroid/widget/ImageView;->getDrawable()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    .line 18
+    sget-boolean v1, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mNavigationEnabled:Z
+
+    if-eqz v1, :cond_0
+
+    if-eqz v0, :cond_0
+
+    .line 19
+    iget v1, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mOverrideIconColor:I
+
+    invoke-virtual {p0, v1}, Landroid/widget/ImageView;->setColorFilter(I)V
+
+    .line 20
+    check-cast v0, Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;
+
+    iget v1, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mOverrideIconColor:I
+
+    sget-object v2, Landroid/graphics/PorterDuff$Mode;->SRC_ATOP:Landroid/graphics/PorterDuff$Mode;
+
+    invoke-virtual {v0, v1, v2}, Landroid/graphics/drawable/Drawable;->setColorFilter(ILandroid/graphics/PorterDuff$Mode;)V
+
+    :cond_0
+    return-void
+.end method
+
 .method static constructor <clinit>()V
     .locals 1
 
@@ -114,12 +151,33 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;ILandroid/hardware/input/InputManager;Lcom/android/internal/logging/UiEventLogger;)V
-    .locals 2
+    .locals 4
     .annotation build Lcom/android/internal/annotations/VisibleForTesting;
     .end annotation
 
     .line 159
     invoke-direct {p0, p1, p2}, Landroid/widget/ImageView;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mHandler:Landroid/os/Handler;
+
+    const/4 v1, 0x1
+
+    const/4 v3, 0x0
+
+    new-array v1, v1, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    .line 60
+    new-instance v2, Lcom/android/systemui/statusbar/policy/KeyButtonView$3;
+
+    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/policy/KeyButtonView$3;-><init>(Lcom/android/systemui/statusbar/policy/KeyButtonView;Ljava/lang/Object;)V
+
+    aput-object v2, v1, v3
+
+    invoke-static {v1}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
 
     .line 85
     const-class v0, Lcom/android/internal/logging/MetricsLogger;
@@ -674,6 +732,22 @@
 
 
 # virtual methods
+.method public apdetKeyButtonView()V
+    .locals 3
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/policy/KeyButtonView;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;
+
+    const/16 v2, 0xe
+
+    invoke-direct {v1, v2, p0}, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;-><init>(BLjava/lang/Object;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->postAtFrontOfQueue(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
 .method public abortCurrentGesture()V
     .locals 2
 

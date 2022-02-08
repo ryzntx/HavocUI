@@ -30,6 +30,8 @@
 
 
 # static fields
+.field public static mExpandedDsb:Z
+
 .field public static final ONLY_CORE_APPS:Z
 
 .field private static final VIBRATION_ATTRIBUTES:Landroid/media/AudioAttributes;
@@ -10602,6 +10604,8 @@
     .line 2821
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedVisible:Z
 
+    sput-boolean v0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedDsb:Z
+
     if-eqz v0, :cond_2
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mNotificationShadeWindowView:Lcom/android/systemui/statusbar/phone/NotificationShadeWindowView;
@@ -10727,6 +10731,8 @@
     .line 2695
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedVisible:Z
 
+    sput-boolean v0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedDsb:Z
+
     if-nez v0, :cond_0
 
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mCommandQueue:Lcom/android/systemui/statusbar/CommandQueue;
@@ -10778,6 +10784,15 @@
     const-class v7, Lcom/android/systemui/plugins/qs/QS;
 
     iget-object v8, v6, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+
+    .line 1391
+    iget-object v1, v6, Lcom/android/systemui/SystemUI;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v1}, Landroid/content/Context;->getPackageName()Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-static {v2, v1}, Lcom/znxt/systemui/ResourceUtils;->init(Ljava/lang/String;Landroid/content/Context;)V
 
     .line 1235
     invoke-virtual/range {p0 .. p0}, Lcom/android/systemui/statusbar/phone/StatusBar;->updateDisplaySize()V

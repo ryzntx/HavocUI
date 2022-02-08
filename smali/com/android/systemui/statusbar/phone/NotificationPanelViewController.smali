@@ -28,6 +28,8 @@
 
 
 # static fields
+.field public static mKeyguardShowingDsb:Z
+
 .field private static final CLOCK_ANIMATION_PROPERTIES:Lcom/android/systemui/statusbar/notification/stack/AnimationProperties;
 
 .field private static final EMPTY_RECT:Landroid/graphics/Rect;

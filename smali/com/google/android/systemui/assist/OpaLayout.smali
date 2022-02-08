@@ -7,6 +7,10 @@
 
 
 # instance fields
+.field private mHandler:Landroid/os/Handler;
+
+.field public mOverrideIconColor:I
+
 .field private final HOME_DISAPPEAR_INTERPOLATOR:Landroid/view/animation/Interpolator;
 
 .field private final mAnimatedViews:Ljava/util/ArrayList;
@@ -95,6 +99,53 @@
 
 
 # direct methods
+.method public apdetOpaLayout()V
+    .locals 3
+
+    iget-object v0, p0, Lcom/google/android/systemui/assist/OpaLayout;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;
+
+    const/4 v2, 0x3
+
+    invoke-direct {v1, v2, p0}, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;-><init>(BLjava/lang/Object;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->postAtFrontOfQueue(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public final synthetic lambda$setTintDsb$setDynamicColor_OpaLayout$0()V
+    .locals 2
+
+    .line 34
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mNavigationEnabled:Z
+
+    if-eqz v0, :cond_0
+
+    .line 35
+    iget v0, p0, Lcom/google/android/systemui/assist/OpaLayout;->mOverrideIconColor:I
+
+    .line 36
+    iget-object v1, p0, Lcom/google/android/systemui/assist/OpaLayout;->mWhite:Landroid/widget/ImageView;
+
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setColorFilter(I)V
+
+    .line 37
+    iget-object v1, p0, Lcom/google/android/systemui/assist/OpaLayout;->mHome:Lcom/android/systemui/statusbar/policy/KeyButtonView;
+
+    invoke-virtual {v1, v0}, Landroid/widget/ImageView;->setColorFilter(I)V
+
+    # .line 38
+    # invoke-direct {p0, v0}, Lcom/google/android/systemui/assist/OpaLayout;->updateHomeDrawable(I)V
+
+    # .line 39
+    # invoke-direct {p0}, Lcom/google/android/systemui/assist/OpaLayout;->updateIconColor()V
+
+    :cond_0
+    return-void
+.end method
+
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 1
 
@@ -129,7 +180,7 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
-    .locals 0
+    .locals 4
 
     .line 88
     invoke-direct {p0, p1, p2, p3, p4}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;II)V
@@ -198,6 +249,29 @@
     invoke-direct {p1, p0}, Lcom/google/android/systemui/assist/OpaLayout$3;-><init>(Lcom/google/android/systemui/assist/OpaLayout;)V
 
     iput-object p1, p0, Lcom/google/android/systemui/assist/OpaLayout;->mDiamondAnimation:Ljava/lang/Runnable;
+
+    .line 59
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/google/android/systemui/assist/OpaLayout;->mHandler:Landroid/os/Handler;
+
+    const/4 v1, 0x1
+
+    const/4 v3, 0x0
+
+    new-array v1, v1, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    .line 60
+    new-instance v2, Lcom/google/android/systemui/assist/OpaLayout$Dsb;
+
+    invoke-direct {v2, p0, p0}, Lcom/google/android/systemui/assist/OpaLayout$Dsb;-><init>(Lcom/google/android/systemui/assist/OpaLayout;Ljava/lang/Object;)V
+
+    aput-object v2, v1, v3
+
+    invoke-static {v1}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
 
     return-void
 .end method

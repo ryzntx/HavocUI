@@ -222,44 +222,59 @@
 .method public applyDarkIntensity(F)V
     .locals 3
 
-    .line 110
+    .line 12
     iput p1, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mDarkIntensity:F
 
-    .line 111
+    .line 13
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mStatusEnabled:Z
+
+    if-eqz v0, :cond_0
+
+    .line 16
+    sget v1, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->parseColorLight:I
+
+    .line 17
+    sget v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->parseColorDark:I
+
+    .line 22
+    :goto_0
     invoke-static {}, Landroid/animation/ArgbEvaluator;->getInstance()Landroid/animation/ArgbEvaluator;
 
-    move-result-object v0
+    move-result-object v2
 
-    iget v1, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mLightModeIconColorSingleTone:I
-
-    .line 112
     invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v1
 
-    iget v2, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mDarkModeIconColorSingleTone:I
+    invoke-static {v0}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
-    invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+    move-result-object v0
 
-    move-result-object v2
+    invoke-virtual {v2, p1, v1, v0}, Landroid/animation/ArgbEvaluator;->evaluate(FLjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
-    .line 111
-    invoke-virtual {v0, p1, v1, v2}, Landroid/animation/ArgbEvaluator;->evaluate(FLjava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    move-result-object v0
 
-    move-result-object p1
+    check-cast v0, Ljava/lang/Integer;
 
-    check-cast p1, Ljava/lang/Integer;
+    invoke-virtual {v0}, Ljava/lang/Integer;->intValue()I
 
-    invoke-virtual {p1}, Ljava/lang/Integer;->intValue()I
+    move-result v0
 
-    move-result p1
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mIconTint:I
 
-    iput p1, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mIconTint:I
-
-    .line 113
+    .line 23
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->applyIconTint()V
 
     return-void
+
+    .line 19
+    :cond_0
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mLightModeIconColorSingleTone:I
+
+    .line 20
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/DarkIconDispatcherImpl;->mDarkModeIconColorSingleTone:I
+
+    goto :goto_0
 .end method
 
 .method public dump(Ljava/io/FileDescriptor;Ljava/io/PrintWriter;[Ljava/lang/String;)V

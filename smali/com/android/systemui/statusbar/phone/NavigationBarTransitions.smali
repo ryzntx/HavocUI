@@ -48,12 +48,18 @@
 
 # direct methods
 .method public constructor <init>(Lcom/android/systemui/statusbar/phone/NavigationBarView;Lcom/android/systemui/statusbar/CommandQueue;)V
-    .locals 3
+    .locals 4
 
     .line 82
-    sget v0, Lcom/android/systemui/R$drawable;->nav_background:I
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NavigationBarTransitions$NavigationBarBackgroundDrawable;
 
-    invoke-direct {p0, p1, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;-><init>(Landroid/view/View;I)V
+    invoke-virtual {p1}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getContext()Landroid/content/Context;
+
+    move-result-object v3
+
+    invoke-direct {v0, v3}, Lcom/android/systemui/statusbar/phone/NavigationBarTransitions$NavigationBarBackgroundDrawable;-><init>(Landroid/content/Context;)V
+
+    invoke-direct {p0, p1, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;-><init>(Landroid/view/View;Lcom/android/systemui/statusbar/phone/BarTransitions$BarBackgroundDrawable;)V
 
     const/4 v0, 0x0
 

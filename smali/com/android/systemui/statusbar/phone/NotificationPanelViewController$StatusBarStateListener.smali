@@ -175,6 +175,8 @@
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$StatusBarStateListener;->this$0:Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;
 
     invoke-static {v1, v7}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->access$10702(Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;Z)Z
+    
+    sput-boolean v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mKeyguardShowingDsb:Z
 
     if-ne v2, v4, :cond_5
 

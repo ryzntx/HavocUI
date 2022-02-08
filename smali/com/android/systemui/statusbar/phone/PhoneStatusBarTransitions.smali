@@ -3,6 +3,15 @@
 .source "PhoneStatusBarTransitions.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/android/systemui/statusbar/phone/PhoneStatusBarTransitions$GradientObserver;,
+        Lcom/android/systemui/statusbar/phone/PhoneStatusBarTransitions$PhoneStatusBarBackgroundDrawable;
+    }
+.end annotation
+
+
 # instance fields
 .field private mBattery:Landroid/view/View;
 
@@ -32,9 +41,15 @@
     .locals 3
 
     .line 43
-    sget v0, Lcom/android/systemui/R$drawable;->status_background:I
+    new-instance v0, Lcom/android/systemui/statusbar/phone/PhoneStatusBarTransitions$PhoneStatusBarBackgroundDrawable;
 
-    invoke-direct {p0, p2, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;-><init>(Landroid/view/View;I)V
+    invoke-virtual {p2}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarView;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    invoke-direct {v0, v1}, Lcom/android/systemui/statusbar/phone/PhoneStatusBarTransitions$PhoneStatusBarBackgroundDrawable;-><init>(Landroid/content/Context;)V
+
+    invoke-direct {p0, p2, v0}, Lcom/android/systemui/statusbar/phone/BarTransitions;-><init>(Landroid/view/View;Lcom/android/systemui/statusbar/phone/BarTransitions$BarBackgroundDrawable;)V
 
     const/4 p2, 0x2
 

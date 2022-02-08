@@ -14,18 +14,38 @@
 .end annotation
 
 
+# static fields
+.field static sama:Z
+
+
 # instance fields
+.field public ena:Z
+
+.field private mCurrentColor:I
+
+.field public mHandler:Landroid/os/Handler;
+
+.field private mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+.field public mOverrideIconColor:I
+
+.field public mContext:Landroid/content/Context;
+
 .field private final mBottom:I
 
 .field private mBurnInProtectionTimer:Ljava/util/Timer;
 
 .field private mBurnInYOffset:I
 
+.field private mCurrentColor:I
+
 .field private final mDarkColor:I
+
+.field private mDarkIntensity:F
 
 .field private final mLightColor:I
 
-.field private final mPaint:Landroid/graphics/Paint;
+.field public final mPaint:Landroid/graphics/Paint;
 
 .field private final mRadius:I
 
@@ -33,6 +53,25 @@
 
 
 # direct methods
+.method static final constructor <clinit>()V
+    .locals 1
+
+    const/4 v0, 0x0
+
+    sput-boolean v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->sama:Z
+
+    return-void
+.end method
+
+.method static synthetic access$1(Lcom/android/systemui/statusbar/phone/NavigationHandle;I)I
+    .locals 0
+
+    .line 10
+    iput p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
+
+    return p1
+.end method
+
 .method public constructor <init>(Landroid/content/Context;)V
     .locals 1
 
@@ -45,16 +84,30 @@
 .end method
 
 .method public constructor <init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
-    .locals 3
+    .locals 4
+
+    const/4 v0, 0x0
 
     .line 69
     invoke-direct {p0, p1, p2}, Landroid/view/View;-><init>(Landroid/content/Context;Landroid/util/AttributeSet;)V
+
+    iput v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
+
+    const/high16 p2, -0x40800000    # -1.0f
+
+    iput p2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mDarkIntensity:F
 
     .line 38
     new-instance p2, Landroid/graphics/Paint;
 
     invoke-direct {p2}, Landroid/graphics/Paint;-><init>()V
 
+    iput-object p2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+
+    .line 119
+    iput-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mContext:Landroid/content/Context;
+
+    .line 120
     iput-object p2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
 
     const/4 p2, 0x0
@@ -137,6 +190,168 @@
     .line 81
     invoke-virtual {p0, p2}, Landroid/view/View;->setFocusable(Z)V
 
+    # .line 59
+    # new-instance v0, Landroid/os/Handler;
+
+    # invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    # iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    # const/4 v1, 0x1
+
+    # const/4 v3, 0x0
+
+    # new-array v1, v1, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    # .line 60
+    # new-instance v2, Lcom/android/systemui/statusbar/phone/NavigationHandle$1;
+
+    # invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle$1;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
+
+    # aput-object v2, v1, v3
+
+    # invoke-static {v1}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->barbek()V
+
+    return-void
+.end method
+
+.method private barbek()V
+    .locals 6
+
+    const/4 v2, 0x1
+
+    const/4 v5, 0x0
+
+    const/4 v3, 0x2
+
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mContext:Landroid/content/Context;
+
+    if-eqz v0, :cond_0
+
+    .line 147
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    if-eqz v0, :cond_0
+
+    .line 148
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    invoke-virtual {v0, v3}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
+
+    .line 152
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    if-nez v0, :cond_1
+
+    .line 153
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    invoke-direct {v0, p0, p0, v3}, Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Lcom/android/systemui/statusbar/phone/NavigationHandle;Landroid/os/Handler;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    .line 157
+    :cond_1
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v3, "DYNAMIC_NAVIGATION_BAR_STATE"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$SettingsObserver;
+
+    invoke-virtual {v0, v3, v5, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 160
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v3, "DYNAMIC_NAVIGATION_BAR_STATE"
+
+    const/4 v4, -0x2
+
+    invoke-static {v0, v3, v5, v4}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v0
+
+    if-eq v0, v2, :cond_2
+
+    move v0, v5
+
+    :goto_0
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->ena:Z
+
+    .line 163
+    new-array v0, v2, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    new-instance v2, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;
+
+    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
+
+    aput-object v2, v0, v5
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
+    return-void
+
+    :cond_2
+    move v0, v2
+
+    .line 160
+    goto :goto_0
+.end method
+
+.method private changeColor(I)V
+    .locals 1
+
+    iput p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mCurrentColor:I
+
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mLightColor:I
+
+    if-eqz v0, :cond_0
+
+    iget-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
+
+    invoke-virtual {p1, v0}, Landroid/graphics/Paint;->setColor(I)V
+
+    goto :goto_0
+
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+
+    invoke-virtual {v0, p1}, Landroid/graphics/Paint;->setColor(I)V
+
+    :goto_0
+    invoke-virtual {p0}, Landroid/view/View;->invalidate()V
+
     return-void
 .end method
 
@@ -169,6 +384,63 @@
 
 
 # virtual methods
+.method public apdet(I)V
+    .locals 2
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(I)V"
+        }
+    .end annotation
+
+    .prologue
+    .line 378
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;
+
+    invoke-direct {v1, p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;I)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public apdetNavigationHandle()V
+    .locals 3
+
+    .line 37
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;
+
+    const/16 v2, 0x3c
+
+    invoke-direct {v1, v2, p0}, Lcom/android/systemui/statusbar/phone/-$$Lambda$Dsb_Tint$0$;-><init>(BLjava/lang/Object;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public lambda$setTintDsb$setDynamicColor_NavigationHandle$0()V
+    .locals 1
+
+    .line 35
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->mNavigationEnabled:Z
+
+    if-eqz v0, :cond_0
+
+    .line 36
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+
+    iget p0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
+
+    invoke-virtual {v0, p0}, Landroid/graphics/Paint;->setColor(I)V
+
+    :cond_0
+    return-void
+.end method
+
 .method public onAttachedToWindow()V
     .locals 6
 
@@ -307,18 +579,25 @@
 .method public setDarkIntensity(F)V
     .locals 3
 
-    .line 119
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mDarkIntensity:F
+
+    cmpl-float v0, v0, p1
+
+    if-eqz v0, :cond_0
+
+    iput p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mDarkIntensity:F
+
     invoke-static {}, Landroid/animation/ArgbEvaluator;->getInstance()Landroid/animation/ArgbEvaluator;
 
     move-result-object v0
 
-    iget v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mLightColor:I
+    iget v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
 
     invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
     move-result-object v1
 
-    iget v2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mDarkColor:I
+    iget v2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
 
     invoke-static {v2}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
 
@@ -334,50 +613,9 @@
 
     move-result p1
 
-    .line 120
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0}, Landroid/graphics/Paint;->getColor()I
-
-    move-result v0
-
-    if-eq v0, p1, :cond_1
-
-    .line 121
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
-
-    invoke-virtual {v0, p1}, Landroid/graphics/Paint;->setColor(I)V
-
-    .line 122
-    invoke-virtual {p0}, Landroid/view/View;->getVisibility()I
-
-    move-result p1
-
-    if-nez p1, :cond_0
-
-    invoke-virtual {p0}, Landroid/view/View;->getAlpha()F
-
-    move-result p1
-
-    const/4 v0, 0x0
-
-    cmpl-float p1, p1, v0
-
-    if-lez p1, :cond_0
-
-    .line 123
-    invoke-virtual {p0}, Landroid/view/View;->invalidate()V
-
-    goto :goto_0
+    invoke-direct {p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->changeColor(I)V
 
     :cond_0
-    const/4 p1, 0x1
-
-    .line 126
-    iput-boolean p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mRequiresInvalidate:Z
-
-    :cond_1
-    :goto_0
     return-void
 .end method
 

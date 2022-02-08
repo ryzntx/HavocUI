@@ -1369,6 +1369,59 @@
 
 
 # virtual methods
+.method public static changeColorToStatic(IF)I
+    .locals 4
+
+    .line 66
+    const/4 v0, 0x0
+
+    cmpg-float v1, p1, v0
+
+    const/high16 v2, 0x3f800000    # 1.0f
+
+    if-gez v1, :cond_0
+
+    goto :goto_0
+
+    :cond_0
+    cmpl-float v0, p1, v2
+
+    if-lez v0, :cond_1
+
+    move v0, v2
+
+    goto :goto_0
+
+    :cond_1
+    move v0, p1
+
+    .line 67
+    :goto_0
+    invoke-static {p0}, Landroid/graphics/Color;->alpha(I)I
+
+    move-result v1
+
+    int-to-float v1, v1
+
+    const/high16 v2, 0x437f0000    # 255.0f
+
+    div-float/2addr v1, v2
+
+    .line 68
+    mul-float/2addr v2, v0
+
+    mul-float/2addr v2, v1
+
+    float-to-int v2, v2
+
+    .line 70
+    invoke-static {p0, v2}, Lcom/android/internal/graphics/ColorUtils;->setAlphaComponent(II)I
+
+    move-result v3
+
+    return v3
+.end method
+
 .method public addCallback(Lcom/android/systemui/BatteryMeterView$BatteryMeterViewCallbacks;)V
     .locals 0
 
@@ -1725,20 +1778,17 @@
 .method public onDarkChanged(Landroid/graphics/Rect;FI)V
     .locals 0
 
-    .line 566
+    .line 22
     invoke-static {p1, p0}, Lcom/android/systemui/plugins/DarkIconDispatcher;->isInArea(Landroid/graphics/Rect;Landroid/view/View;)Z
 
     move-result p1
 
-    if-eqz p1, :cond_0
+    if-nez p1, :cond_0
 
-    goto :goto_0
-
-    :cond_0
     const/4 p2, 0x0
 
-    .line 567
-    :goto_0
+    .line 25
+    :cond_0
     iget-object p1, p0, Lcom/android/systemui/BatteryMeterView;->mDualToneHandler:Lcom/android/systemui/DualToneHandler;
 
     invoke-virtual {p1, p2}, Lcom/android/systemui/DualToneHandler;->getSingleColor(F)I
@@ -1747,7 +1797,7 @@
 
     iput p1, p0, Lcom/android/systemui/BatteryMeterView;->mNonAdaptedSingleToneColor:I
 
-    .line 568
+    .line 26
     iget-object p1, p0, Lcom/android/systemui/BatteryMeterView;->mDualToneHandler:Lcom/android/systemui/DualToneHandler;
 
     invoke-virtual {p1, p2}, Lcom/android/systemui/DualToneHandler;->getFillColor(F)I
@@ -1756,7 +1806,7 @@
 
     iput p1, p0, Lcom/android/systemui/BatteryMeterView;->mNonAdaptedForegroundColor:I
 
-    .line 569
+    .line 27
     iget-object p1, p0, Lcom/android/systemui/BatteryMeterView;->mDualToneHandler:Lcom/android/systemui/DualToneHandler;
 
     invoke-virtual {p1, p2}, Lcom/android/systemui/DualToneHandler;->getBackgroundColor(F)I
@@ -1765,19 +1815,15 @@
 
     iput p1, p0, Lcom/android/systemui/BatteryMeterView;->mNonAdaptedBackgroundColor:I
 
-    .line 571
-    iget-boolean p2, p0, Lcom/android/systemui/BatteryMeterView;->mUseWallpaperTextColors:Z
+    const p1, 0x3ecdddff
 
-    if-nez p2, :cond_1
+    .line 28
+    invoke-static {p3, p1}, Lcom/android/systemui/BatteryMeterView;->changeColorToStatic(IF)I
 
-    .line 572
-    iget p2, p0, Lcom/android/systemui/BatteryMeterView;->mNonAdaptedForegroundColor:I
+    move-result p1
 
-    iget p3, p0, Lcom/android/systemui/BatteryMeterView;->mNonAdaptedSingleToneColor:I
+    invoke-direct {p0, p3, p1, p3}, Lcom/android/systemui/BatteryMeterView;->updateColors(III)V
 
-    invoke-direct {p0, p2, p1, p3}, Lcom/android/systemui/BatteryMeterView;->updateColors(III)V
-
-    :cond_1
     return-void
 .end method
 
