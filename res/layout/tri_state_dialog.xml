@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:paddingLeft="@dimen/tri_state_dialog_padding" android:paddingTop="@dimen/tri_state_dialog_padding" android:paddingRight="@dimen/tri_state_dialog_padding" android:paddingBottom="@dimen/tri_state_dialog_padding" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentTop="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_gravity="center|right" android:orientation="horizontal" android:id="@id/tri_state_layout" android:background="@drawable/dialog_tri_state_middle_bg" android:layout_width="wrap_content" android:layout_height="48.0dip" android:translationZ="@dimen/tri_state_dialog_elevation">
+        <FrameLayout android:layout_width="54.0dip" android:layout_height="fill_parent">
+            <ImageView android:layout_gravity="center" android:id="@id/tri_state_icon" android:layout_width="@dimen/tri_state_dialog_icon_size" android:layout_height="@dimen/tri_state_dialog_icon_size" android:layout_marginLeft="2.0dip" />
+        </FrameLayout>
+        <TextView android:gravity="center_vertical" android:id="@id/tri_state_text" android:layout_width="wrap_content" android:layout_height="fill_parent" style="@style/TriStateUiText" />
+        <FrameLayout android:layout_width="18.0dip" android:layout_height="fill_parent" />
+    </LinearLayout>
+</LinearLayout>

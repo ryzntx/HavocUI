@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.keyguard.clock.ClockLayout android:layout_gravity="start|center|top" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:gravity="start" android:layout_gravity="start|center|top" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginStart="40.0dip" android:layout_alignParentStart="true">
+        <LinearLayout android:gravity="start" android:layout_gravity="start|center|top" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:id="@id/textInclude" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\#include  " android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="#ff3ddb86" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="&lt;iostream>" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:id="@id/textUsingNamespace" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="using namespace  " android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:id="@id/textStd" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="std;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:id="@id/textIntMain" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="int main  " android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="( )" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="{" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:id="@id/textTimeDateDayMonth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\u0009string time, date, day, month;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\u0009time =  '" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextClock android:textSize="14.0sp" android:textColor="#ffffffff" android:id="@id/clockTime" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:format12Hour="hh:mm" android:format24Hour="kk:mm" android:letterSpacing="0.03" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="'  ;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:paddingStart="-0.5dip" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\u0009day =  '" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextClock android:textSize="14.0sp" android:textColor="#ff3ddb86" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/clockDay" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAllCaps="true" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:format12Hour="EEEE" android:format24Hour="EEEE" android:letterSpacing="0.3" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="'  ;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:paddingStart="-0.5dip" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\u0009date =  '" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextClock android:textSize="14.0sp" android:id="@id/clockDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:format12Hour="yyyy.MM.dd" android:format24Hour="yyyy.MM.dd" android:letterSpacing="0.03" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="'  ;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:paddingStart="-0.5dip" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\u0009month =  '" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+                <TextClock android:textSize="14.0sp" android:gravity="center" android:id="@id/clockMonth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:singleLine="true" android:textAllCaps="true" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:format12Hour="MMMM" android:format24Hour="MMMM" android:letterSpacing="0.3" />
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="'  ;" android:fontFamily="@android:string/config_headlineFontFamilyMedium" android:paddingStart="-0.5dip" />
+            </LinearLayout>
+            <LinearLayout android:gravity="start" android:layout_gravity="start" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="?wallpaperTextColor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="}" android:fontFamily="@android:string/config_headlineFontFamilyMedium" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</com.android.keyguard.clock.ClockLayout>

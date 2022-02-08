@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_1" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_2" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_3" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_4" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_5" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_6" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_7" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_8" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_9" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_10" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_11" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_12" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_13" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_14" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_15" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_16" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_17" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_18" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_19" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_20" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_21" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_22" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_23" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_24" />
+    <item android:duration="12" android:drawable="@drawable/fod_recognizing_animation_25" />
+</animation-list>

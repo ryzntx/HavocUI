@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="36.0dip" android:layout_height="12.0dip" android:layout_margin="8.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/color_preview_start" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    <View android:id="@id/color_preview_between" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+    <View android:id="@id/color_preview_end" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" />
+</LinearLayout>
