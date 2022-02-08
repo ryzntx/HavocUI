@@ -6,12 +6,20 @@
 # annotations
 .annotation system Ldalvik/annotation/MemberClasses;
     value = {
-        Lcom/android/systemui/navigation/pulse/SolidLineRenderer$CMRendererObserver;
+        Lcom/android/systemui/navigation/pulse/SolidLineRenderer$CMRendererObserver;,
+        Lcom/android/systemui/navigation/pulse/SolidLineRenderer$2;,
+        Lcom/android/systemui/navigation/pulse/SolidLineRenderer$3;
     }
 .end annotation
 
 
 # instance fields
+.field private mAutoColor:Z
+
+.field private mOverrideIconColor:I
+
+.field private mHandler:Landroid/os/Handler;
+
 .field private mColor:I
 
 .field private mDbFuzzFactor:I
@@ -40,6 +48,107 @@
 
 
 # direct methods
+.method static synthetic access$jiamvut(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;)Z
+    .locals 0
+
+    .line 43
+    iget-boolean p0, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mAutoColor:Z
+
+    return p0
+.end method
+
+.method private UpdateListener()V
+    .locals 5
+
+    .prologue
+    const/4 v3, 0x0
+    
+    const/4 v1, 0x0
+    
+    const/4 v4, 0x1
+    
+    .line 65
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mHandler:Landroid/os/Handler;
+
+    .line 48
+    iput v3, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mOverrideIconColor:I
+
+    .line 81
+    new-array v0, v4, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    new-instance v1, Lcom/android/systemui/navigation/pulse/SolidLineRenderer$2;
+
+    invoke-direct {v1, p0, p0}, Lcom/android/systemui/navigation/pulse/SolidLineRenderer$2;-><init>(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;Ljava/lang/Object;)V
+
+    aput-object v1, v0, v3
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
+    .line 116
+    return-void
+.end method
+
+.method private setColor()V
+    .locals 2
+
+    .prologue
+    .line 95
+    iget-object v0, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/navigation/pulse/SolidLineRenderer$3;
+
+    invoke-direct {v1, p0}, Lcom/android/systemui/navigation/pulse/SolidLineRenderer$3;-><init>(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method static synthetic -get10(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;)I
+    .locals 1
+    .param p0, "-this"    # Lcom/android/systemui/navigation/pulse/SolidLineRenderer;
+
+    .prologue
+    iget v0, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mOverrideIconColor:I
+
+    return v0
+.end method
+
+.method static synthetic -get8(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;)Landroid/graphics/Paint;
+    .locals 1
+    .param p0, "-this"    # Lcom/android/systemui/navigation/pulse/SolidLineRenderer;
+
+    .prologue
+    iget-object v0, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mPaint:Landroid/graphics/Paint;
+
+    return-object v0
+.end method
+
+.method static synthetic -set6(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;I)V
+    .locals 0
+    .param p0, "-this"    # Lcom/android/systemui/navigation/pulse/SolidLineRenderer;
+    .param p1, "-color"    # I
+
+    .prologue
+    iput p1, p0, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->mOverrideIconColor:I
+
+    return-void
+.end method
+
+.method static synthetic -wrap0(Lcom/android/systemui/navigation/pulse/SolidLineRenderer;)V
+    .locals 0
+    .param p0, "-this"    # Lcom/android/systemui/navigation/pulse/SolidLineRenderer;
+
+    .prologue
+    invoke-direct {p0}, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->setColor()V
+
+    return-void
+.end method
+
 .method public constructor <init>(Landroid/content/Context;Landroid/os/Handler;Lcom/android/systemui/navigation/pulse/PulseView;Lcom/android/systemui/navigation/pulse/ColorController;)V
     .locals 0
 
@@ -85,6 +194,8 @@
 
     .line 63
     invoke-direct {p0}, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->loadValueAnimators()V
+
+    invoke-direct {p0}, Lcom/android/systemui/navigation/pulse/SolidLineRenderer;->UpdateListener()V
 
     return-void
 .end method
