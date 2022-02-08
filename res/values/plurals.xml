@@ -76,15 +76,9 @@
         <item quantity="few">%d minutes</item>
     </plurals>
     <plurals name="type_clock_header">
-        <item quantity="other">&lt;annotation name="color">It’s&lt;/annotation>"
-^1
-^2"</item>
-        <item quantity="one">&lt;annotation name="color">It’s&lt;/annotation>"
-^1
-^2"</item>
-        <item quantity="few">&lt;annotation name="color">It’s&lt;/annotation>"
-^1
-^2"</item>
+        <item quantity="other">@string/text_clock_header_few</item>
+        <item quantity="one">@string/text_clock_header_few</item>
+        <item quantity="few">@string/text_clock_header_few</item>
     </plurals>
     <plurals name="user_limit_reached_message">
         <item quantity="other">You can add up to %d users.</item>
