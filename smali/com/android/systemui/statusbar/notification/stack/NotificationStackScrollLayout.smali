@@ -75,7 +75,7 @@
 
 .field private final mBackgroundAnimationRect:Landroid/graphics/Rect;
 
-.field private final mBackgroundPaint:Landroid/graphics/Paint;
+.field public static final mBackgroundPaint:Landroid/graphics/Paint;
 
 .field private mBackgroundUpdater:Landroid/view/ViewTreeObserver$OnPreDrawListener;
 
@@ -592,7 +592,7 @@
 
     invoke-direct {v8}, Landroid/graphics/Paint;-><init>()V
 
-    iput-object v8, v0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sput-object v8,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     const/4 v8, -0x1
 
@@ -1295,7 +1295,7 @@
     invoke-virtual {p0, v1}, Landroid/view/ViewGroup;->setWillNotDraw(Z)V
 
     .line 664
-    iget-object v1, v0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sget-object v1,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v1, v9}, Landroid/graphics/Paint;->setAntiAlias(Z)V
 
@@ -3080,7 +3080,7 @@
 
     int-to-float v10, v10
 
-    iget-object v6, v0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sget-object v6,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     move-object/from16 v16, p1
 
@@ -3147,7 +3147,7 @@
 
     int-to-float v5, v5
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sget-object v0,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     move-object/from16 v16, p1
 
@@ -3311,7 +3311,7 @@
 
     int-to-float v12, v0
 
-    iget-object v13, p0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sget-object v13,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     move-object v6, p1
 
@@ -10425,7 +10425,7 @@
     iput v0, p0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mCachedBackgroundColor:I
 
     .line 1101
-    iget-object v1, p0, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+    sget-object v1,  Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
 
     invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
 

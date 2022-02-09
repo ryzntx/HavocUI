@@ -181,7 +181,7 @@
 
 .field private final mDynamicPrivacyController:Lcom/android/systemui/statusbar/notification/DynamicPrivacyController;
 
-.field private mExpandedVisible:Z
+.field public mExpandedVisible:Z
 
 .field private final mExtensionController:Lcom/android/systemui/statusbar/policy/ExtensionController;
 
@@ -317,7 +317,7 @@
 
 .field private final mNotificationLogger:Lcom/android/systemui/statusbar/notification/logging/NotificationLogger;
 
-.field protected mNotificationPanelViewController:Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;
+.field public mNotificationPanelViewController:Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;
 
 .field private mNotificationShadeDepthControllerLazy:Ldagger/Lazy;
     .annotation system Ldalvik/annotation/Signature;
@@ -10629,8 +10629,12 @@
 
     invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->closeQs()V
 
+    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->recycle()V
+
     .line 2831
     iput-boolean v2, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedVisible:Z
+
+    sput-boolean v2, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedDsb:Z
 
     .line 2832
     invoke-virtual {p0, v2}, Lcom/android/systemui/statusbar/phone/StatusBar;->visibilityChanged(Z)V
@@ -10724,7 +10728,7 @@
 .end method
 
 .method makeExpandedVisible(Z)V
-    .locals 3
+    .locals 4
 
     if-nez p1, :cond_1
 
@@ -10749,8 +10753,15 @@
     :cond_1
     const/4 v0, 0x1
 
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mNotificationPanelViewController:Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;
+
+    .line 2673
+    invoke-virtual {v3}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->startBlurTask()V
+
     .line 2699
     iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedVisible:Z
+
+    sput-boolean v0, Lcom/android/systemui/statusbar/phone/StatusBar;->mExpandedDsb:Z
 
     .line 2703
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/StatusBar;->mNotificationShadeWindowController:Lcom/android/systemui/statusbar/phone/NotificationShadeWindowController;

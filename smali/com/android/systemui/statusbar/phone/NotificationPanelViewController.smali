@@ -22,12 +22,45 @@
         Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$OnOverscrollTopChangedListener;,
         Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$OnClickListener;,
         Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$OnHeightChangedListener;,
-        Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$SettingsObserver;
+        Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$SettingsObserver;,
+        Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;
     }
 .end annotation
 
 
 # static fields
+.field public static alpha:F
+
+.field public static alphaNotif:F
+
+.field public static mAlphaAnimation:Landroid/view/animation/AlphaAnimation;
+
+.field private static final mAnimationListener:Landroid/view/animation/Animation$AnimationListener;
+
+.field public static mBlurDarkColorFilter:I
+
+.field public static mBlurLightColorFilter:I
+
+.field public static mBlurMixedColorFilter:I
+
+.field public static mBlurRadius:I
+
+.field public static mBlurScale:I
+
+.field public static mBlurUtils:Lcom/znxt/systemui/BlurUtils;
+
+.field public static mBlurredStatusBarExpandedEnabled:Z
+
+.field public static mBlurredView:Landroid/widget/FrameLayout;
+
+.field public static mColorFilter:Landroid/graphics/ColorFilter;
+
+.field public static mContext:Landroid/content/Context;
+
+.field public static mInnerBlurredView:Landroid/widget/FrameLayout;
+
+.field public static mTranslucencyPercentage:Z
+
 .field public static mKeyguardShowingDsb:Z
 
 .field private static final CLOCK_ANIMATION_PROPERTIES:Lcom/android/systemui/statusbar/notification/stack/AnimationProperties;
@@ -40,6 +73,8 @@
 
 
 # instance fields
+.field private mActivatableNotif:Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;
+
 .field private final KEYGUARD_HEADS_UP_SHOWING_AMOUNT:Lcom/android/systemui/statusbar/notification/AnimatableProperty;
 
 .field private mAccessibilityDelegate:Landroid/view/View$AccessibilityDelegate;
@@ -420,7 +455,7 @@
     .end annotation
 .end field
 
-.field private final mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+.field public final mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
 .field private final mWakeUpCoordinator:Lcom/android/systemui/statusbar/notification/NotificationWakeUpCoordinator;
 
@@ -432,6 +467,13 @@
 # direct methods
 .method static constructor <clinit>()V
     .locals 3
+
+    .line 58
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$Animation;
+
+    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$Animation;-><init>()V
+
+    sput-object v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mAnimationListener:Landroid/view/animation/Animation$AnimationListener;
 
     .line 220
     new-instance v0, Landroid/graphics/Rect;
@@ -5109,6 +5151,9 @@
     .line 661
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->loadDimens()V
 
+    .line 437
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->initBlurPrefs()V
+
     .line 662
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
 
@@ -8634,6 +8679,650 @@
 
 
 # virtual methods
+.method public initBlurPrefs()V
+    .locals 4
+
+    .line 69
+    new-instance v0, Landroid/view/animation/AlphaAnimation;
+
+    const/4 v1, 0x0
+
+    const/high16 v2, 0x3f800000    # 1.0f
+
+    invoke-direct {v0, v1, v2}, Landroid/view/animation/AlphaAnimation;-><init>(FF)V
+
+    sput-object v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mAlphaAnimation:Landroid/view/animation/AlphaAnimation;
+
+    const-wide/16 v1, 0x12c
+
+    .line 70
+    invoke-virtual {v0, v1, v2}, Landroid/view/animation/AlphaAnimation;->setDuration(J)V
+
+    .line 71
+    sget-object v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mAnimationListener:Landroid/view/animation/Animation$AnimationListener;
+
+    invoke-virtual {v0, v1}, Landroid/view/animation/AlphaAnimation;->setAnimationListener(Landroid/view/animation/Animation$AnimationListener;)V
+
+    .line 72
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    sput-object v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mContext:Landroid/content/Context;
+
+    .line 73
+    new-instance v1, Lcom/znxt/systemui/BlurUtils;
+
+    invoke-direct {v1, v0}, Lcom/znxt/systemui/BlurUtils;-><init>(Landroid/content/Context;)V
+
+    sput-object v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurUtils:Lcom/znxt/systemui/BlurUtils;
+
+    .line 74
+    new-instance v1, Landroid/widget/FrameLayout;
+
+    invoke-direct {v1, v0}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
+
+    sput-object v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurredView:Landroid/widget/FrameLayout;
+
+    .line 75
+    new-instance v2, Landroid/widget/FrameLayout;
+
+    invoke-direct {v2, v0}, Landroid/widget/FrameLayout;-><init>(Landroid/content/Context;)V
+
+    sput-object v2, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mInnerBlurredView:Landroid/widget/FrameLayout;
+
+    .line 76
+    new-instance v0, Landroid/widget/FrameLayout$LayoutParams;
+
+    const/4 v3, -0x1
+
+    invoke-direct {v0, v3, v3}, Landroid/widget/FrameLayout$LayoutParams;-><init>(II)V
+
+    .line 77
+    invoke-virtual {v1, v2, v0}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;Landroid/view/ViewGroup$LayoutParams;)V
+
+    .line 78
+    iget-object p0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    const/4 v2, 0x0
+
+    .line 79
+    invoke-virtual {p0, v1, v2, v0}, Landroid/widget/FrameLayout;->addView(Landroid/view/View;ILandroid/view/ViewGroup$LayoutParams;)V
+
+    .line 80
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->requestLayout()V
+
+    const-string p0, "ready_to_blur"
+
+    .line 81
+    invoke-virtual {v1, p0}, Landroid/widget/FrameLayout;->setTag(Ljava/lang/Object;)V
+
+    const/4 p0, 0x4
+
+    .line 82
+    invoke-virtual {v1, p0}, Landroid/widget/FrameLayout;->setVisibility(I)V
+
+    return-void
+.end method
+
+.method public recycle()V
+    .locals 3
+
+    .line 86
+    sget-object p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mInnerBlurredView:Landroid/widget/FrameLayout;
+
+    .line 87
+    invoke-virtual {p0}, Landroid/widget/FrameLayout;->getBackground()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1
+
+    .line 89
+    instance-of v2, v0, Landroid/graphics/drawable/BitmapDrawable;
+
+    if-eqz v2, :cond_0
+
+    .line 90
+    check-cast v0, Landroid/graphics/drawable/BitmapDrawable;
+
+    invoke-virtual {v0}, Landroid/graphics/drawable/BitmapDrawable;->getBitmap()Landroid/graphics/Bitmap;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_0
+
+    .line 92
+    invoke-virtual {v0}, Landroid/graphics/Bitmap;->recycle()V
+
+    .line 94
+    :cond_0
+    invoke-virtual {p0, v1}, Landroid/widget/FrameLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    .line 96
+    :cond_1
+    sget-object p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurredView:Landroid/widget/FrameLayout;
+
+    .line 97
+    invoke-virtual {p0, v1}, Landroid/widget/FrameLayout;->setBackground(Landroid/graphics/drawable/Drawable;)V
+
+    const-string v0, "ready_to_blur"
+
+    .line 98
+    invoke-virtual {p0, v0}, Landroid/widget/FrameLayout;->setTag(Ljava/lang/Object;)V
+
+    const/4 v0, 0x4
+
+    .line 99
+    invoke-virtual {p0, v0}, Landroid/widget/FrameLayout;->setVisibility(I)V
+
+    return-void
+.end method
+
+.method public startBlurTask()V
+    .locals 4
+
+    .line 103
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mView:Lcom/android/systemui/statusbar/phone/NotificationPanelView;
+
+    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getContext()Landroid/content/Context;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "BLUR_SCALE_PREFERENCE_KEY"
+
+    const/16 v2, 0xa
+
+    .line 104
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurScale:I
+
+    const-string v1, "BLUR_RADIUS_PREFERENCE_KEY"
+
+    const/4 v2, 0x5
+
+    .line 105
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurRadius:I
+
+    const-string v1, "BLUR_DARK_COLOR_PREFERENCE_KEY"
+
+    const/4 v2, -0x1
+
+    .line 106
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurDarkColorFilter:I
+
+    const-string v1, "BLUR_MIXED_COLOR_PREFERENCE_KEY"
+
+    .line 107
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurMixedColorFilter:I
+
+    const-string v1, "BLUR_LIGHT_COLOR_PREFERENCE_KEY"
+
+    .line 108
+    invoke-static {v0, v1, v2}, Landroid/provider/Settings$System;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I
+
+    move-result v1
+
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurLightColorFilter:I
+
+    const-string v1, "STATUS_BAR_EXPANDED_ENABLED_PREFERENCE_KEY"
+
+    const/4 v2, 0x0
+
+    const/4 v3, -0x2
+
+    .line 109
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    if-ne v0, v1, :cond_0
+
+    goto :goto_0
+
+    :cond_0
+    move v1, v2
+
+    :goto_0
+    sput-boolean v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurredStatusBarExpandedEnabled:Z
+
+    if-eqz v1, :cond_3
+
+    .line 110
+    iget-boolean v0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mKeyguardShowing:Z
+
+    if-nez v0, :cond_3
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->isPanelVisibleBecauseOfHeadsUp()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_1
+
+    goto :goto_1
+
+    .line 113
+    :cond_1
+    :try_start_0
+    sget-object v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurredView:Landroid/widget/FrameLayout;
+
+    invoke-virtual {v0}, Landroid/widget/FrameLayout;->getTag()Ljava/lang/Object;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/Object;->toString()Ljava/lang/String;
+
+    move-result-object v0
+
+    const-string v1, "blur_applied"
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v0
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    if-eqz v0, :cond_2
+
+    return-void
+
+    .line 117
+    :catch_0
+    :cond_2
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$Blur;
+
+    invoke-direct {v0, p0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$Blur;-><init>(Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;)V
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;->setBlurTaskCallback(Lcom/znxt/systemui/BlurUtils$BlurTaskCallback;)V
+
+    .line 159
+    sget-object v0, Lcom/znxt/systemui/BlurUtils$BlurEngine;->RenderScriptBlur:Lcom/znxt/systemui/BlurUtils$BlurEngine;
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;->setBlurEngine(Lcom/znxt/systemui/BlurUtils$BlurEngine;)V
+
+    .line 160
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;
+
+    invoke-direct {v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;-><init>()V
+
+    sget-object v1, Landroid/os/AsyncTask;->THREAD_POOL_EXECUTOR:Ljava/util/concurrent/Executor;
+
+    new-array v2, v2, [Ljava/lang/Void;
+
+    invoke-virtual {v0, v1, v2}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController$BlurTask;->executeOnExecutor(Ljava/util/concurrent/Executor;[Ljava/lang/Object;)Landroid/os/AsyncTask;
+
+    .line 161
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->startBlurTransparency()V
+
+    :cond_3
+    :goto_1
+    return-void
+.end method
+
+.method public startBlurTransparency()V
+    .locals 6
+
+    .line 165
+    sget-object v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v1, "HEADER_TRANSPARENCY"
+
+    const/4 v2, 0x0
+
+    const/4 v3, -0x2
+
+    .line 166
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v1
+
+    const/4 v4, 0x1
+
+    const-string v1, "QS_TRANSPARENCY"
+
+    .line 167
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v1
+
+    if-ne v1, v4, :cond_0
+
+    move v1, v4
+
+    goto :goto_0
+
+    :cond_0
+    move v1, v2
+
+    :goto_0
+    const-string v5, "NOTIF_TRANSPARENCY"
+
+    .line 168
+    invoke-static {v0, v5, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v5
+
+    if-ne v5, v4, :cond_1
+
+    move v2, v4
+
+    :cond_1
+    sput-boolean v2, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mTranslucencyPercentage:Z
+
+    const-string v4, "BLUR_TRANSPARENCY"
+
+    const/16 v5, 0xff
+
+    .line 169
+    invoke-static {v0, v4, v5, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v0
+
+    .line 171
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->startFloatTransparency(I)V
+
+    .line 172
+    sget-object v3, Lcom/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout;->mBackgroundPaint:Landroid/graphics/Paint;
+
+    if-eqz v2, :cond_2
+
+    move v4, v0
+
+    goto :goto_1
+
+    :cond_2
+    move v4, v5
+
+    .line 173
+    :goto_1
+    invoke-virtual {v3, v4}, Landroid/graphics/Paint;->setAlpha(I)V
+
+    .line 175
+    sget-object v3, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+
+    invoke-virtual {v3}, Landroid/view/View;->getBackground()Landroid/graphics/drawable/Drawable;
+
+    move-result-object v3
+
+    if-eqz v1, :cond_3
+
+    move v5, v0
+
+    :cond_3
+    invoke-virtual {v3, v5}, Landroid/graphics/drawable/Drawable;->setAlpha(I)V
+
+    .line 176
+    iget-object p0, p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mActivatableNotif:Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;
+
+    if-eqz p0, :cond_6
+
+    if-eqz v2, :cond_4
+
+    .line 178
+    sget v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_2
+
+    :cond_4
+    const/high16 v0, 0x3f800000    # 1.0f
+
+    .line 179
+    :goto_2
+    iget-object v1, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+
+    if-eqz v1, :cond_5
+
+    .line 181
+    invoke-virtual {v1, v0}, Landroid/view/View;->setAlpha(F)V
+
+    .line 182
+    :cond_5
+    iget-object p0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+
+    if-eqz p0, :cond_6
+
+    .line 184
+    invoke-virtual {p0, v0}, Landroid/view/View;->setAlpha(F)V
+
+    :cond_6
+    return-void
+.end method
+
+.method public startFloatTransparency(I)V
+    .locals 9
+
+    const/4 p0, 0x0
+
+    const/high16 v0, 0x3f000000    # 0.5f
+
+    const/high16 v1, 0x3f800000    # 1.0f
+
+    const/16 v2, 0x1e
+
+    const/16 v3, 0x28
+
+    const/16 v4, 0x32
+
+    const/16 v5, 0xc8
+
+    const/16 v6, 0xff
+
+    if-ne p1, v6, :cond_0
+
+    .line 192
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto/16 :goto_0
+
+    :cond_0
+    if-le p1, v5, :cond_1
+
+    if-ge p1, v6, :cond_1
+
+    const v7, 0x3f666666    # 0.9f
+
+    .line 194
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto/16 :goto_0
+
+    :cond_1
+    const/16 v7, 0x96
+
+    if-le p1, v7, :cond_2
+
+    if-gt p1, v5, :cond_2
+
+    const v7, 0x3f4ccccd    # 0.8f
+
+    .line 196
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_2
+    const/16 v8, 0x64
+
+    if-le p1, v8, :cond_3
+
+    if-gt p1, v7, :cond_3
+
+    const v7, 0x3f333333    # 0.7f
+
+    .line 198
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_3
+    const/16 v7, 0x4b
+
+    if-le p1, v7, :cond_4
+
+    if-gt p1, v8, :cond_4
+
+    const v7, 0x3f19999a    # 0.6f
+
+    .line 200
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_4
+    if-le p1, v4, :cond_5
+
+    if-gt p1, v7, :cond_5
+
+    .line 202
+    sput v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_5
+    if-le p1, v3, :cond_6
+
+    if-gt p1, v4, :cond_6
+
+    const v7, 0x3ecccccd    # 0.4f
+
+    .line 204
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_6
+    if-le p1, v2, :cond_7
+
+    if-gt p1, v3, :cond_7
+
+    const v7, 0x3e99999a    # 0.3f
+
+    .line 206
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_7
+    const/16 v7, 0x14
+
+    if-le p1, v7, :cond_8
+
+    if-gt p1, v2, :cond_8
+
+    const v7, 0x3e4ccccd    # 0.2f
+
+    .line 208
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_8
+    const/16 v8, 0xa
+
+    if-le p1, v8, :cond_9
+
+    if-gt p1, v7, :cond_9
+
+    const v7, 0x3dcccccd    # 0.1f
+
+    .line 210
+    sput v7, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    goto :goto_0
+
+    :cond_9
+    if-ltz p1, :cond_a
+
+    if-gt p1, v8, :cond_a
+
+    .line 212
+    sput p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alpha:F
+
+    :cond_a
+    :goto_0
+    if-ne p1, v6, :cond_b
+
+    .line 215
+    sput v1, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_1
+
+    :cond_b
+    if-le p1, v5, :cond_c
+
+    if-ge p1, v6, :cond_c
+
+    const/high16 p0, 0x3f400000    # 0.75f
+
+    .line 217
+    sput p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_1
+
+    :cond_c
+    if-le p1, v4, :cond_d
+
+    if-gt p1, v5, :cond_d
+
+    .line 219
+    sput v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_1
+
+    :cond_d
+    if-le p1, v3, :cond_e
+
+    if-gt p1, v4, :cond_e
+
+    const/high16 p0, 0x3e800000    # 0.25f
+
+    .line 221
+    sput p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_1
+
+    :cond_e
+    if-ltz p1, :cond_f
+
+    if-gt p1, v2, :cond_f
+
+    .line 223
+    sput p0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    :cond_f
+    :goto_1
+    return-void
+.end method
+
 .method public addOnGlobalLayoutListener(Landroid/view/ViewTreeObserver$OnGlobalLayoutListener;)V
     .locals 0
 

@@ -28,7 +28,7 @@
 # instance fields
 .field private mAnimateBottomOnNextLayout:Z
 
-.field private mBackground:Landroid/view/View;
+.field public static mBackground:Landroid/view/View;
 
 .field private mBackgroundBottom:I
 
@@ -177,7 +177,7 @@
     if-ne v0, v1, :cond_0
 
     .line 157
-    iget-object p0, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+    sget-object p0,  Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
 
     invoke-virtual {p0}, Landroid/view/View;->getBottom()I
 
@@ -274,7 +274,7 @@
     iput p1, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackgroundBottom:I
 
     .line 152
-    iget-object p0, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+    sget-object p0,  Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
 
     invoke-virtual {p0, p1}, Landroid/view/View;->setBottom(I)V
 
@@ -767,7 +767,7 @@
     invoke-direct {p0, p1}, Lcom/android/systemui/qs/QSContainerImpl;->setBackgroundGradientVisibility(Landroid/content/res/Configuration;)V
 
     .line 236
-    iget-object p1, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+    sget-object p1,  Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
 
     iget-boolean p0, p0, Lcom/android/systemui/qs/QSContainerImpl;->mQsDisabled:Z
 
@@ -916,7 +916,7 @@
 
     move-result-object v0
 
-    iput-object v0, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+    sput-object v0,  Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
 
     .line 105
     sget v0, Lcom/android/systemui/R$id;->quick_settings_status_bar_background:I
@@ -1299,7 +1299,7 @@
     invoke-virtual {v1, v2}, Landroid/view/View;->setTranslationY(F)V
 
     .line 278
-    iget-object v1, p0, Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
+    sget-object v1,  Lcom/android/systemui/qs/QSContainerImpl;->mBackground:Landroid/view/View;
 
     iget-object v2, p0, Lcom/android/systemui/qs/QSContainerImpl;->mQSPanelContainer:Landroid/view/View;
 

@@ -35,9 +35,9 @@
 
 .field private mBackgroundColorAnimator:Landroid/animation/ValueAnimator;
 
-.field private mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+.field public mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
-.field mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+.field public mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
 .field private mBackgroundVisibilityUpdater:Landroid/animation/ValueAnimator$AnimatorUpdateListener;
 
@@ -2712,10 +2712,10 @@
 .method protected updateBackground()V
     .locals 6
 
-    .line 583
+    .line 32
     invoke-direct {p0}, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->cancelFadeAnimations()V
 
-    .line 584
+    .line 33
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->shouldHideBackground()Z
 
     move-result v0
@@ -2728,12 +2728,12 @@
 
     if-eqz v0, :cond_1
 
-    .line 585
+    .line 34
     iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 586
+    .line 35
     iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
     iget-boolean v4, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mActivated:Z
@@ -2745,15 +2745,17 @@
     :cond_0
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    goto :goto_2
+    goto :goto_4
 
-    .line 587
+    .line 36
     :cond_1
     iget-boolean v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mDimmed:Z
 
+    const/4 v4, 0x1
+
     if-eqz v0, :cond_6
 
-    .line 590
+    .line 39
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/notification/row/ExpandableView;->isGroupExpansionChanging()Z
 
     move-result v0
@@ -2766,18 +2768,16 @@
 
     if-eqz v0, :cond_2
 
-    const/4 v0, 0x1
-
     goto :goto_0
 
     :cond_2
-    move v0, v3
+    move v4, v3
 
-    .line 591
+    .line 40
     :goto_0
-    iget-object v4, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+    iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
-    if-eqz v0, :cond_3
+    if-eqz v4, :cond_3
 
     move v5, v2
 
@@ -2787,61 +2787,87 @@
     move v5, v3
 
     :goto_1
-    invoke-virtual {v4, v5}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {v0, v5}, Landroid/view/View;->setVisibility(I)V
 
-    .line 592
-    iget-object v4, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+    .line 41
+    iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
     iget-boolean v5, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mActivated:Z
 
     if-nez v5, :cond_4
 
-    if-eqz v0, :cond_5
+    if-eqz v4, :cond_5
 
     :cond_4
     move v2, v3
 
     :cond_5
-    invoke-virtual {v4, v2}, Landroid/view/View;->setVisibility(I)V
+    invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    goto :goto_2
+    goto :goto_4
 
-    .line 596
+    .line 45
     :cond_6
     iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundDimmed:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
     invoke-virtual {v0, v2}, Landroid/view/View;->setVisibility(I)V
 
-    .line 597
+    .line 46
     iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
     invoke-virtual {v0, v3}, Landroid/view/View;->setVisibility(I)V
 
-    .line 598
-    iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+    .line 47
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mBlurredStatusBarExpandedEnabled:Z
 
-    invoke-virtual {v0, v1}, Landroid/view/View;->setAlpha(F)V
+    if-eqz v0, :cond_7
 
-    .line 600
-    invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->makeInactive(Z)V
+    sget-boolean v0, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->mTranslucencyPercentage:Z
 
-    .line 603
+    if-eqz v0, :cond_7
+
+    goto :goto_2
+
+    :cond_7
+    move v4, v3
+
+    .line 48
     :goto_2
     iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
 
+    if-eqz v4, :cond_8
+
+    sget v2, Lcom/android/systemui/statusbar/phone/NotificationPanelViewController;->alphaNotif:F
+
+    goto :goto_3
+
+    :cond_8
+    move v2, v1
+
+    :goto_3
+    invoke-virtual {v0, v2}, Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;->setAlpha(F)V
+
+    .line 50
+    invoke-virtual {p0, v3}, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->makeInactive(Z)V
+
+    .line 52
+    :goto_4
+    iget-object v0, p0, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->mBackgroundNormal:Lcom/android/systemui/statusbar/notification/row/NotificationBackgroundView;
+
+    .line 53
     invoke-virtual {v0}, Landroid/view/View;->getVisibility()I
 
     move-result v0
 
-    if-nez v0, :cond_7
+    if-nez v0, :cond_9
 
-    goto :goto_3
+    goto :goto_5
 
-    :cond_7
+    :cond_9
     const/4 v1, 0x0
 
-    .line 602
-    :goto_3
+    .line 52
+    :goto_5
     invoke-direct {p0, v1}, Lcom/android/systemui/statusbar/notification/row/ActivatableNotificationView;->setNormalBackgroundVisibilityAmount(F)V
 
     return-void
