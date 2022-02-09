@@ -4,4 +4,6 @@
     <com.android.systemui.CornerHandleView android:layout_gravity="bottom|center|left" android:id="@id/assist_hint_left" android:visibility="gone" android:layout_width="36.0dip" android:layout_height="36.0dip" android:rotation="270.0" />
     <com.android.systemui.CornerHandleView android:layout_gravity="bottom|center|right" android:id="@id/assist_hint_right" android:visibility="gone" android:layout_width="36.0dip" android:layout_height="36.0dip" android:rotation="180.0" />
     <com.android.systemui.statusbar.phone.NavigationBarInflaterView android:id="@id/navigation_inflater" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.android.systemui.statusbar.phone.navigation.halo android:gravity="center" android:layout_gravity="center" android:id="@+id/halo_batt" android:layout_width="40.0dip" android:layout_height="40.0dip" android:importantForAccessibility="no" />
+    <!-- <com.android.systemui.statusbar.phone.navigation.haloLand android:gravity="center" android:layout_gravity="center" android:id="@+id/halo_land" android:layout_width="40.0dip" android:layout_height="40.0dip" android:importantForAccessibility="no" /> -->
 </com.android.systemui.statusbar.phone.NavigationBarView>

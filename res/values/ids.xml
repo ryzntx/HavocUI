@@ -1273,4 +1273,9 @@
     <item type="id" name="zen_mode_panel" />
     <item type="id" name="zen_radio_buttons" />
     <item type="id" name="zen_radio_buttons_content" />
+    <item type="id" name="halo_batt" />
+    <item type="id" name="halo_land" />
+    <item type="id" name="battery_frame"/>
+    <item type="id" name="battery_fill"/>
+    <item type="id" name="battery_charge_indicator"/>
 </resources>

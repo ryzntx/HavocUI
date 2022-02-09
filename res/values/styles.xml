@@ -3285,4 +3285,14 @@
         <item name="android:shadowRadius">?shadowRadius</item>
         <item name="android:fontFamily">@android:string/config_headlineFontFamily</item>
     </style>
+    <style name="BatteryMeterViewDrawable">
+        <item name="android:gravity">center</item>
+        <item name="blendMode">clear</item>
+    </style>
+    <style name="BatteryMeterViewDrawable.Portrait" parent="@style/BatteryMeterViewDrawable" />
+    <style name="BatteryMeterViewDrawable.Landscape" parent="@style/BatteryMeterViewDrawable" />
+    <style name="BatteryMeterViewDrawable.Circle" parent="@style/BatteryMeterViewDrawable">
+        <item name="blendMode">overlay</item>
+    </style>
+	<style name="BatteryMeterViewDrawable.Fayah" parent="@style/BatteryMeterViewDrawable" />
 </resources>

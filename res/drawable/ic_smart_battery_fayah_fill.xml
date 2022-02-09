@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="28.0dip" android:width="28.0dip" android:viewportWidth="96.0" android:viewportHeight="96.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:pathData="M48,36L67,36C85.5,35,85.5,61,67,60L29,60C10.5,60.99,10.5,35,29,36L48,36" android:strokeColor="#60ffffff" android:strokeWidth="4.0" />
+    <path android:name="battery_level" android:pathData="M48,36L67,36C85.5,35,85.5,61,67,60L29,60C10.5,60.99,10.5,35,29,36L48,36" android:strokeColor="#ffffffff" android:strokeWidth="4.0" />
+</vector>

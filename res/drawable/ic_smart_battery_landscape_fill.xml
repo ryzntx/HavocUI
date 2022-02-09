@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="24.0dip" android:width="24.0dip" android:viewportWidth="24.0" android:viewportHeight="24.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ffffffff" android:pathData="M 12 6.9 C 14.8166522241 6.9 17.1 9.18334777586 17.1 12 C 17.1 14.8166522241 14.8166522241 17.1 12 17.1 C 9.18334777586 17.1 6.9 14.8166522241 6.9 12 C 6.9 9.18334777586 9.18334777586 6.9 12 6.9 Z" />
+    <path android:pathData="M 12 4.9 C 15.9212217238 4.9 19.1 8.0787782762 19.1 12 C 19.1 15.9212217238 15.9212217238 19.1 12 19.1 C 8.0787782762 19.1 4.9 15.9212217238 4.9 12 C 4.9 8.0787782762 8.0787782762 4.9 12 4.9 Z" android:strokeColor="#80ffffff" android:strokeWidth="1.8" android:strokeMiterLimit="10.0" />
+    <path android:name="battery_level" android:pathData="M 12 4.9 C 15.9212217238 4.9 19.1 8.0787782762 19.1 12 C 19.1 15.9212217238 15.9212217238 19.1 12 19.1 C 8.0787782762 19.1 4.9 15.9212217238 4.9 12 C 4.9 8.0787782762 8.0787782762 4.9 12 4.9 Z" android:strokeColor="#ffffffff" android:strokeWidth="1.8" android:strokeMiterLimit="10.0" />
+    <path android:pathData="M 12 5.8 C 15.424165449 5.8 18.2 8.57583455105 18.2 12 C 18.2 15.424165449 15.424165449 18.2 12 18.2 C 8.57583455105 18.2 5.8 15.424165449 5.8 12 C 5.8 8.57583455105 8.57583455105 5.8 12 5.8 Z" android:strokeColor="#ffffffff" android:strokeWidth="0.1" android:strokeMiterLimit="10.0" />
+    <path android:pathData="M 12 3.8 C 16.5287349486 3.8 20.2 7.47126505139 20.2 12 C 20.2 16.5287349486 16.5287349486 20.2 12 20.2 C 7.47126505139 20.2 3.8 16.5287349486 3.8 12 C 3.8 7.47126505139 7.47126505139 3.8 12 3.8 Z" android:strokeColor="#ffffffff" android:strokeWidth="0.1991" android:strokeMiterLimit="10.0" />
+</vector>

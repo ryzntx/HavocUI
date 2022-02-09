@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:tint="@color/batterymeter_bolt_color" android:height="24.0dip" android:width="24.0dip" android:viewportWidth="24.0" android:viewportHeight="24.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ff000000" android:pathData="m 11.417767,7.934195 0,3.049373 -3.0493721,0 0,2.032862 3.0493721,0 0,3.049375 2.032862,0 0,-3.049375 3.049371,0 0,-2.032862 -3.049372,0 0,-3.0493729 -2.032861,0 z" />
+</vector>

@@ -522,6 +522,12 @@
     <public type="anim" name="wireless_charging_ellipse_path_8_animation" id="0x7f010207" />
     <public type="anim" name="wireless_charging_ellipse_path_9_animation" id="0x7f010208" />
     <public type="anim" name="wireless_charging_null_1_animation" id="0x7f010209" />
+    <public type="anim" name="cas" id="0x7f01020a" />
+    <public type="anim" name="casdua" id="0x7f01020b" />
+    <public type="anim" name="smart_battery_circle" id="0x7f01020c" />
+    <public type="anim" name="smart_battery_fayah" id="0x7f01020d" />
+    <public type="anim" name="smart_battery_landscape" id="0x7f01020e" />
+    <public type="anim" name="smart_battery_portrait" id="0x7f01020f" />
     <public type="animator" name="lb_guidedactions_item_pressed" id="0x7f020000" />
     <public type="animator" name="lb_guidedactions_item_unpressed" id="0x7f020001" />
     <public type="animator" name="lb_guidedstep_slide_down" id="0x7f020002" />
@@ -1533,6 +1539,7 @@
     <public type="attr" name="windowMinWidthMajor" id="0x7f040378" />
     <public type="attr" name="windowMinWidthMinor" id="0x7f040379" />
     <public type="attr" name="windowNoTitle" id="0x7f04037a" />
+    <public type="attr" name="blendMode" id="0x7f04037b" />
     <public type="bool" name="abc_action_bar_embed_tabs" id="0x7f050000" />
     <public type="bool" name="abc_allow_stacked_button_bar" id="0x7f050001" />
     <public type="bool" name="abc_config_actionMenuItemAllCaps" id="0x7f050002" />
@@ -4679,6 +4686,26 @@
     <public type="drawable" name="wireless_charging" id="0x7f0806cc" />
     <public type="drawable" name="wireless_charging_animation" id="0x7f0806cd" />
     <public type="drawable" name="zen_introduction_message_background" id="0x7f0806cf" />
+    <public type="drawable" name="cas_anim" id="0x7f0806d0" />
+    <public type="drawable" name="ic_smart_battery_bolt" id="0x7f0806d1" />
+    <public type="drawable" name="ic_smart_battery_circle" id="0x7f0806d2" />
+    <public type="drawable" name="ic_smart_battery_circle_avd" id="0x7f0806d3" />
+    <public type="drawable" name="ic_smart_battery_circle_fill" id="0x7f0806d4" />
+    <public type="drawable" name="ic_smart_battery_circle_frame" id="0x7f0806d5" />
+    <public type="drawable" name="ic_smart_battery_circle_ngecas" id="0x7f0806d6" />
+    <public type="drawable" name="ic_smart_battery_fayah" id="0x7f0806d7" />
+    <public type="drawable" name="ic_smart_battery_fayah_avd" id="0x7f0806d8" />
+    <public type="drawable" name="ic_smart_battery_fayah_fill" id="0x7f0806d9" />
+    <public type="drawable" name="ic_smart_battery_fayah_frame" id="0x7f0806da" />
+    <public type="drawable" name="ic_smart_battery_landscape" id="0x7f0806db" />
+    <public type="drawable" name="ic_smart_battery_landscape_avd" id="0x7f0806dc" />
+    <public type="drawable" name="ic_smart_battery_landscape_fill" id="0x7f0806dd" />
+    <public type="drawable" name="ic_smart_battery_landscape_frame" id="0x7f0806de" />
+    <public type="drawable" name="ic_smart_battery_plus" id="0x7f0806df" />
+    <public type="drawable" name="ic_smart_battery_portrait" id="0x7f0806e0" />
+    <public type="drawable" name="ic_smart_battery_portrait_avd" id="0x7f0806e1" />
+    <public type="drawable" name="ic_smart_battery_portrait_fill" id="0x7f0806e2" />
+    <public type="drawable" name="ic_smart_battery_portrait_frame" id="0x7f0806e3" />
     <public type="drawable" name="abc_ic_arrow_forward" id="0x7f08026f" />
     <public type="drawable" name="abc_ic_permission" id="0x7f080279" />
     <public type="drawable" name="abc_ic_slice_send" id="0x7f08027b" />
@@ -6463,6 +6490,22 @@
     <public type="id" name="zen_mode_panel" id="0x7f0a0586" />
     <public type="id" name="zen_radio_buttons" id="0x7f0a0587" />
     <public type="id" name="zen_radio_buttons_content" id="0x7f0a0588" />
+    <public type="id" name="halo_batt" id="0x7f0a0589" />
+    <public type="id" name="halo_land" id="0x7f0a058a" />
+    <public type="id" name="battery_frame" id="0x7f0a058b" />
+    <public type="id" name="battery_fill" id="0x7f0a058c" />
+    <public type="id" name="battery_charge_indicator" id="0x7f0a058d" />
+    <public type="id" name="clear" id="0x7f0a058e" />
+    <public type="id" name="darken" id="0x7f0a058f" />
+    <public type="id" name="dst" id="0x7f0a0590" />
+    <public type="id" name="dst_atop" id="0x7f0a0591" />
+    <public type="id" name="dst_in" id="0x7f0a0592" />
+    <public type="id" name="dst_out" id="0x7f0a0593" />
+    <public type="id" name="dst_over" id="0x7f0a0594" />
+    <public type="id" name="overlay" id="0x7f0a0595" />
+    <public type="id" name="src" id="0x7f0a0596" />
+    <public type="id" name="src_out" id="0x7f0a0597" />
+    <public type="id" name="xor" id="0x7f0a0598" />
     <public type="integer" name="abc_config_activityDefaultDur" id="0x7f0b0000" />
     <public type="integer" name="abc_config_activityShortDur" id="0x7f0b0001" />
     <public type="integer" name="ambient_notification_extension_time" id="0x7f0b0002" />
@@ -9191,6 +9234,7 @@
     <public type="string" name="zen_priority_introduction" id="0x7f1107f4" />
     <public type="string" name="zen_silence_introduction" id="0x7f1107f5" />
     <public type="string" name="zen_silence_introduction_voice" id="0x7f1107f6" />
+    <public type="string" name="text_clock_header_few" id="0x7f1107f7" />
     <public type="string" name="toast_rotation_locked" id="0x7f110705" />
     <public type="string" name="notifications_off_text" id="0x7f1104fb" />
     <public type="string" name="notifications_off_title" id="0x7f1104fc" />
@@ -9920,6 +9964,11 @@
     <public type="style" name="widget_label" id="0x7f1202d3" />
     <public type="style" name="widget_small_bold" id="0x7f1202d4" />
     <public type="style" name="widget_title_bold" id="0x7f1202d5" />
+    <public type="style" name="BatteryMeterViewDrawable" id="0x7f1202d6" />
+    <public type="style" name="BatteryMeterViewDrawable.Portrait" id="0x7f1202d7" />
+    <public type="style" name="BatteryMeterViewDrawable.Landscape" id="0x7f1202d8" />
+    <public type="style" name="BatteryMeterViewDrawable.Circle" id="0x7f1202d9" />
+    <public type="style" name="BatteryMeterViewDrawable.Fayah" id="0x7f1202da" />
     <public type="transition" name="lb_browse_enter_transition" id="0x7f140000" />
     <public type="transition" name="lb_browse_entrance_transition" id="0x7f140001" />
     <public type="transition" name="lb_browse_headers_in" id="0x7f140002" />

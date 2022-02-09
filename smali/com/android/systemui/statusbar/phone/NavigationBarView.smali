@@ -17,6 +17,16 @@
 
 
 # instance fields
+.field public mHandler:Landroid/os/Handler;
+
+.field public mOverrideIconColor:I
+
+.field public mPreviousOverrideIconColor:I
+
+.field public mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+.field public mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
 .field private mAutoHideController:Lcom/android/systemui/statusbar/phone/AutoHideController;
 
 .field private mBackIcon:Lcom/android/systemui/statusbar/policy/KeyButtonDrawable;
@@ -633,6 +643,32 @@
 
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mRegionSamplingHelper:Lcom/android/systemui/statusbar/phone/RegionSamplingHelper;
 
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->barbek()V
+
+    return-void
+.end method
+
+.method private barbek()V
+    .locals 4
+
+    const/4 v1, 0x0
+
+    const/4 v2, 0x0
+
+    const/4 v3, 0x1
+
+    new-array v0, v3, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationBarView$7;
+
+    invoke-direct {v1, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView$7;-><init>(Lcom/android/systemui/statusbar/phone/NavigationBarView;Ljava/lang/Object;)V
+
+    aput-object v1, v0, v2
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+	
+	new-array v0, v3, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+    
     return-void
 .end method
 
@@ -3633,12 +3669,16 @@
 .end method
 
 .method public onFinishInflate()V
-    .locals 2
+    .registers 7
+
+    const/4 v5, 0x1
+
+    const/4 v4, 0x0
 
     .line 985
     invoke-super {p0}, Landroid/widget/FrameLayout;->onFinishInflate()V
 
-    .line 986
+    .line 910
     sget v0, Lcom/android/systemui/R$id;->navigation_inflater:I
 
     invoke-virtual {p0, v0}, Landroid/widget/FrameLayout;->findViewById(I)Landroid/view/View;
@@ -3649,12 +3689,74 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationInflaterView:Lcom/android/systemui/statusbar/phone/NavigationBarInflaterView;
 
-    .line 987
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHandler:Landroid/os/Handler;
+
+    const v0, 0x7f0a0589
+
+    invoke-virtual {p0, v0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->findViewById(I)Landroid/view/View;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    new-instance v0, Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    iget-object v1, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    iget-object v2, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHandler:Landroid/os/Handler;
+
+    invoke-direct {v0, v1, v2}, Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;-><init>(Landroid/content/Context;Landroid/os/Handler;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationBarView$6;
+
+    invoke-direct {v1, p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView$6;-><init>(Lcom/android/systemui/statusbar/phone/NavigationBarView;)V
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;->addStateChangedCallback(Lcom/android/systemui/statusbar/policy/smartbatre/BatteryStateRegistar$BatteryStateChangeCallback;)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/navigation/halo;->setBatteryStateRegistar(Lcom/android/systemui/statusbar/policy/smartbatre/BatteryStateRegistar;)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBatteryController:Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/navigation/halo;->setBatteryController(Lcom/android/systemui/statusbar/policy/smartbatre/BatteryController;)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/navigation/halo;->setAnimationsEnabled(Z)V
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mHalo:Lcom/android/systemui/statusbar/phone/navigation/halo;
+
+    const/4 v1, 0x1
+
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/navigation/halo;->setVisibility(I)V
+
+    .line 911
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationInflaterView:Lcom/android/systemui/statusbar/phone/NavigationBarInflaterView;
+
     iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mButtonDispatchers:Landroid/util/SparseArray;
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NavigationBarInflaterView;->setButtonDispatchers(Landroid/util/SparseArray;)V
 
-    .line 989
+    .line 913
     invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->getImeSwitchButton()Lcom/android/systemui/statusbar/phone/ButtonDispatcher;
 
     move-result-object v0
@@ -3663,7 +3765,7 @@
 
     invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/ButtonDispatcher;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
-    .line 991
+    .line 915
     sget v0, Lcom/android/systemui/R$id;->nav_buttons:I
 
     invoke-virtual {p0, v0}, Landroid/widget/FrameLayout;->findViewById(I)Landroid/view/View;
@@ -3674,14 +3776,16 @@
 
     iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationBarContents:Landroid/view/ViewGroup;
 
-    .line 993
+    .line 917
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationBarContents:Landroid/view/ViewGroup;
+
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getPaddingStart()I
 
     move-result v0
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBasePaddingLeft:I
 
-    .line 994
+    .line 918
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationBarContents:Landroid/view/ViewGroup;
 
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getPaddingTop()I
@@ -3690,7 +3794,7 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBasePaddingTop:I
 
-    .line 995
+    .line 919
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationBarContents:Landroid/view/ViewGroup;
 
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getPaddingEnd()I
@@ -3699,7 +3803,7 @@
 
     iput v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mBasePaddingRight:I
 
-    .line 996
+    .line 920
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationBarView;->mNavigationBarContents:Landroid/view/ViewGroup;
 
     invoke-virtual {v0}, Landroid/view/ViewGroup;->getPaddingBottom()I
@@ -3725,7 +3829,7 @@
     .line 1000
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->updateOrientationViews()V
 
-    .line 1001
+    .line 924
     invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationBarView;->reloadNavIcons()V
 
     return-void
