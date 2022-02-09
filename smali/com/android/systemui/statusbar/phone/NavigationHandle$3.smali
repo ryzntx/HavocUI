@@ -1,9 +1,6 @@
 .class Lcom/android/systemui/statusbar/phone/NavigationHandle$3;
-.super Ljava/lang/Object;
+.super Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
 .source "NavigationHandle.java"
-
-# interfaces
-.implements Ljava/lang/Runnable;
 
 
 # annotations
@@ -13,25 +10,21 @@
 
 .annotation system Ldalvik/annotation/InnerClass;
     accessFlags = 0x20
-    name = "3"
+    name = "1"
 .end annotation
 
 
 # instance fields
 .field private final this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
 
-.field private final val$targetColor:I
-
 
 # direct methods
-.method constructor <init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;I)V
+.method constructor <init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
     .locals 0
 
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+    invoke-direct {p0, p2}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;-><init>(Ljava/lang/Object;)V
 
     iput-object p1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
-
-    iput p2, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->val$targetColor:I
 
     return-void
 .end method
@@ -46,11 +39,11 @@
 
 
 # virtual methods
-.method public run()V
-    .locals 3
+.method public onUpdateNavigationBarIconColor(II)V
+    .locals 2
     .annotation system Ldalvik/annotation/Signature;
         value = {
-            "()V"
+            "(II)V"
         }
     .end annotation
 
@@ -58,53 +51,19 @@
     .end annotation
 
     .prologue
-    .line 382
+    .line 168
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
 
-    iget-object v0, v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+    iput p2, v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
 
-    if-eqz v0, :cond_1
-
-    .line 383
+    .line 169
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
 
-    iget-object v1, v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
 
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
+    iget v1, v1, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
 
-    iget-boolean v0, v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->ena:Z
+    invoke-virtual {v0, v1}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->apdet(I)V
 
-    if-eqz v0, :cond_0
-
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->val$targetColor:I
-
-    :goto_0
-    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
-
-    .line 385
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
-
-    invoke-virtual {v0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->invalidate()V
-
-    .line 387
-    :goto_1
     return-void
-
-    .line 383
-    :cond_0
-    const/4 v0, -0x1
-
-    goto :goto_0
-
-    .line 387
-    :cond_1
-    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->this$0:Lcom/android/systemui/statusbar/phone/NavigationHandle;
-
-    iget-object v1, v0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
-
-    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;->val$targetColor:I
-
-    invoke-virtual {v1, v0}, Landroid/graphics/Paint;->setColor(I)V
-
-    goto :goto_1
 .end method

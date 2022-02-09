@@ -19,6 +19,10 @@
 
 
 # instance fields
+.field private mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+.field public mNavigationEnabled:Z
+
 .field public ena:Z
 
 .field private mCurrentColor:I
@@ -53,6 +57,53 @@
 
 
 # direct methods
+.method static synthetic access$2(Lcom/android/systemui/statusbar/phone/NavigationHandle;)V
+    .locals 0
+
+    .line 10
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->updateCustomWidth()V
+
+    return-void
+.end method
+
+.method static synthetic access$3(Lcom/android/systemui/statusbar/phone/NavigationHandle;)Landroid/graphics/Paint;
+    .locals 1
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mPaint:Landroid/graphics/Paint;
+
+    return-object v0
+.end method
+
+.method static synthetic access$4(Lcom/android/systemui/statusbar/phone/NavigationHandle;)I
+    .locals 1
+
+    .line 10
+    iget v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mOverrideIconColor:I
+
+    return v0
+.end method
+
+.method private updateCustomWidth()V
+    .locals 2
+
+    .line 163
+    invoke-virtual {p0}, Landroid/view/View;->getLayoutParams()Landroid/view/ViewGroup$LayoutParams;
+
+    move-result-object v0
+
+    .line 164
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->getCustomWidth()I
+
+    move-result v1
+
+    iput v1, v0, Landroid/view/ViewGroup$LayoutParams;->width:I
+
+    .line 165
+    invoke-virtual {p0, v0}, Landroid/view/View;->setLayoutParams(Landroid/view/ViewGroup$LayoutParams;)V
+
+    return-void
+.end method
+
 .method static final constructor <clinit>()V
     .locals 1
 
@@ -120,24 +171,6 @@
 
     move-result-object v0
 
-    .line 71
-    sget v1, Lcom/android/systemui/R$dimen;->navigation_handle_radius:I
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v1
-
-    iput v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mRadius:I
-
-    .line 72
-    sget v1, Lcom/android/systemui/R$dimen;->navigation_handle_bottom:I
-
-    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
-
-    move-result v0
-
-    iput v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mBottom:I
-
     .line 74
     sget v0, Lcom/android/systemui/R$attr;->darkIconTheme:I
 
@@ -189,6 +222,21 @@
 
     .line 81
     invoke-virtual {p0, p2}, Landroid/view/View;->setFocusable(Z)V
+
+    .line 66
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    iget-object v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    invoke-direct {v0, p0, v1}, Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Landroid/os/Handler;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    .line 67
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->observe()V
+
+    .line 68
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->updateGesture()V
 
     # .line 59
     # new-instance v0, Landroid/os/Handler;
@@ -310,9 +358,9 @@
     .line 163
     new-array v0, v2, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
 
-    new-instance v2, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;
+    new-instance v2, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;
 
-    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
+    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
 
     aput-object v2, v0, v5
 
@@ -384,6 +432,331 @@
 
 
 # virtual methods
+.method public apdetNavigationHandle(I)V
+    .locals 2
+
+    .line 150
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;
+
+    invoke-direct {v1, p0, p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationHandle$2;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;I)V
+
+    invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
+
+    return-void
+.end method
+
+.method public defaultBottom()I
+    .locals 2
+
+    .line 149
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    .line 150
+    const-string v1, "navigation_handle_bottom"
+
+    invoke-static {v1}, Lcom/znxt/systemui/ResourceUtils;->getDimenResId(Ljava/lang/String;)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+
+    move-result v0
+
+    .line 151
+    return v0
+.end method
+
+.method public defaultRadius()I
+    .locals 2
+
+    .line 143
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    .line 144
+    const-string v1, "navigation_handle_radius"
+
+    invoke-static {v1}, Lcom/znxt/systemui/ResourceUtils;->getDimenResId(Ljava/lang/String;)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+
+    move-result v0
+
+    .line 145
+    return v0
+.end method
+
+.method public defaultWidth()I
+    .locals 2
+
+    .line 177
+    invoke-virtual {p0}, Landroid/view/View;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v0
+
+    .line 178
+    const-string v1, "navigation_home_handle_width"
+
+    invoke-static {v1}, Lcom/znxt/systemui/ResourceUtils;->getDimenResId(Ljava/lang/String;)I
+
+    move-result v1
+
+    invoke-virtual {v0, v1}, Landroid/content/res/Resources;->getDimensionPixelSize(I)I
+
+    move-result v0
+
+    .line 179
+    return v0
+.end method
+
+.method public getCustomWidth()I
+    .locals 4
+
+    .line 194
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    .line 195
+    const-string v1, "NAVIGATION_HANDLE_WIDTH"
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->defaultWidth()I
+
+    move-result v2
+
+    const/4 v3, -0x2
+
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v0
+
+    .line 196
+    return v0
+.end method
+
+.method public observe()V
+    .locals 6
+
+    const/4 v2, 0x1
+
+    const/4 v1, 0x0
+
+    .line 127
+    new-instance v0, Landroid/os/Handler;
+
+    invoke-direct {v0}, Landroid/os/Handler;-><init>()V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    .line 128
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    if-eqz v0, :cond_0
+
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    if-eqz v0, :cond_0
+
+    .line 129
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    invoke-virtual {v0, v3}, Landroid/content/ContentResolver;->unregisterContentObserver(Landroid/database/ContentObserver;)V
+
+    .line 131
+    :cond_0
+    iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    if-nez v0, :cond_1
+
+    .line 132
+    new-instance v0, Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    iget-object v3, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
+
+    invoke-direct {v0, p0, v3}, Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Landroid/os/Handler;)V
+
+    iput-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    .line 134
+    :cond_1
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    const-string v3, "DYNAMIC_NAVIGATION_BAR_STATE"
+
+    const/4 v4, -0x2
+
+    invoke-static {v0, v3, v1, v4}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v0
+
+    if-eq v0, v2, :cond_2
+
+    move v0, v1
+
+    :goto_0
+    iput-boolean v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mNavigationEnabled:Z
+
+    .line 135
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    .line 136
+    iget-object v3, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v3}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v3
+
+    const-string v4, "DYNAMIC_NAVIGATION_BAR_STATE"
+
+    invoke-static {v4}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v4
+
+    iget-object v5, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    invoke-virtual {v3, v4, v1, v5}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 137
+    const-string v3, "NAVIGATION_HANDLE_WIDTH"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    invoke-virtual {v0, v3, v1, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 138
+    const-string v3, "NAVIGATION_HANDLE_HEIGHT"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    invoke-virtual {v0, v3, v1, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 139
+    const-string v3, "GESTURE_LINE_BOTTOM_SIZE"
+
+    invoke-static {v3}, Landroid/provider/Settings$System;->getUriFor(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v3
+
+    iget-object v4, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mSettingsObserver:Lcom/android/systemui/statusbar/phone/NavigationHandle$PillSettingsObserver;
+
+    invoke-virtual {v0, v3, v1, v4}, Landroid/content/ContentResolver;->registerContentObserver(Landroid/net/Uri;ZLandroid/database/ContentObserver;)V
+
+    .line 140
+    new-array v0, v2, [Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;
+
+    new-instance v2, Lcom/android/systemui/statusbar/phone/NavigationHandle$1;
+
+    invoke-direct {v2, p0, p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle$1;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;Ljava/lang/Object;)V
+
+    aput-object v2, v0, v1
+
+    invoke-static {v0}, Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater;->addListener([Lcom/android/systemui/statusbar/phone/BarBackgroundUpdater$UpdateListener;)V
+
+    return-void
+
+    :cond_2
+    move v0, v2
+
+    .line 134
+    goto :goto_0
+.end method
+
+.method public updateGesture()V
+    .locals 4
+
+    const/4 v3, -0x2
+
+    .line 159
+    iget-object v0, p0, Landroid/view/View;->mContext:Landroid/content/Context;
+
+    invoke-virtual {v0}, Landroid/content/Context;->getContentResolver()Landroid/content/ContentResolver;
+
+    move-result-object v0
+
+    .line 160
+    const-string v1, "GESTURE_LINE_BOTTOM_SIZE"
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->defaultBottom()I
+
+    move-result v2
+
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v1
+
+    iput v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mBottom:I
+
+    .line 161
+    const-string v1, "NAVIGATION_HANDLE_HEIGHT"
+
+    invoke-virtual {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->defaultRadius()I
+
+    move-result v2
+
+    invoke-static {v0, v1, v2, v3}, Landroid/provider/Settings$System;->getIntForUser(Landroid/content/ContentResolver;Ljava/lang/String;II)I
+
+    move-result v1
+
+    iput v1, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mRadius:I
+
+    return-void
+.end method
+
+.method protected onAttachedToWindow()V
+    .locals 0
+
+    .line 167
+    invoke-super {p0}, Landroid/view/View;->onAttachedToWindow()V
+
+    .line 168
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->updateCustomWidth()V
+
+    return-void
+.end method
+
+.method protected onConfigurationChanged(Landroid/content/res/Configuration;)V
+    .locals 0
+
+    .line 172
+    invoke-super {p0, p1}, Landroid/view/View;->onConfigurationChanged(Landroid/content/res/Configuration;)V
+
+    .line 173
+    invoke-direct {p0}, Lcom/android/systemui/statusbar/phone/NavigationHandle;->updateCustomWidth()V
+
+    return-void
+.end method
+
 .method public apdet(I)V
     .locals 2
     .annotation system Ldalvik/annotation/Signature;
@@ -396,9 +769,9 @@
     .line 378
     iget-object v0, p0, Lcom/android/systemui/statusbar/phone/NavigationHandle;->mHandler:Landroid/os/Handler;
 
-    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;
+    new-instance v1, Lcom/android/systemui/statusbar/phone/NavigationHandle$4;
 
-    invoke-direct {v1, p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationHandle$3;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;I)V
+    invoke-direct {v1, p0, p1}, Lcom/android/systemui/statusbar/phone/NavigationHandle$4;-><init>(Lcom/android/systemui/statusbar/phone/NavigationHandle;I)V
 
     invoke-virtual {v0, v1}, Landroid/os/Handler;->post(Ljava/lang/Runnable;)Z
 
